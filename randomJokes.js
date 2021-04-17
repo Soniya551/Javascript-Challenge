@@ -20,7 +20,7 @@ function fetchData(){
     .then(data => {
         data.laughRate=(data.punchline).split(" ").length;
         jokes.push(data);
-        console.log("After 1 second without sorting: ", data);
+        console.log("After 1 second: ", data);
 
         var n=jokes.length;
   
