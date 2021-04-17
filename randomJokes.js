@@ -1,10 +1,17 @@
-var jokes=new Array();
+var jokes = new Array();
+var iteration = 0;
 
-function x(){
 
-}
-var count=0;
 function fetchData(){
+
+    iteration++;
+
+    if (iteration >= 5){
+
+        clearInterval(interval);
+
+    }
+
     fetch('https://official-joke-api.appspot.com/random_joke')
     .then(response => {
       return response.json();
@@ -12,37 +19,31 @@ function fetchData(){
     })
     .then(data => {
         data.laughRate=(data.punchline).split(" ").length;
-        jokes[count]=data;
+        jokes.push(data);
+        console.log("After 1 second without sorting: ", data);
+
         var n=jokes.length;
   
-    for(var i=0;i<n;i++){
-        for(var j=0;j<n-1;j++){
-            if(jokes[j].laughRate>jokes[j+1].laughRate){
-            var temp=jokes[j+1];
-            jokes[j+1]=jokes[j];
-            jokes[j]=temp;
+        for(var i=0;i<n;i++){
+            for(var j=0;j<n-1;j++){
+                if(jokes[j].laughRate>jokes[j+1].laughRate){
+                var temp=jokes[j+1];
+                jokes[j+1]=jokes[j];
+                jokes[j]=temp;
+            }
         }
     }
 
-}
-       count++;
-   
-       
     })
-    .catch()
+    .catch();
 }
- function ar(){
-   
 
 
+function settime(){
 
-    for(var i=1;i<=5;i++){
-       setTimeout(x, 1000);
-       fetchData();
-        
+ interval = setInterval(fetchData, 1000);
 
-    }
-     
-console.log(jokes);
+ console.log("with sorting :",jokes);
 }
-ar();
+
+settime();
